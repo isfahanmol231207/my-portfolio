@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import portfolioImg from "../assets/image.png";
 import {
   FaGithub,
   FaLaptopCode,
@@ -26,8 +27,7 @@ const projects = [
       "Modern portfolio showcasing skills and projects with clean UI.",
     tech: ["React", "Tailwind", "Framer Motion"],
     github: "https://github.com/isfahanmol231207",
-    image:
-      "C:\Users\isfah\my-portfolio\src\assets\image.png",
+    image: portfolioImg,
     icon: <FaUserCircle />,
   },
   {
