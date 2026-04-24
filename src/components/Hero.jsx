@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import profile from "../assets/profile.png";
-import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 
 export default function Hero({ darkMode }) {
@@ -13,7 +13,7 @@ export default function Hero({ darkMode }) {
           : "bg-[#f5f5f5] text-[#111827]"
       }`}
     >
-      {/* Background effects */}
+      {/* Background */}
       <div
         className={`absolute inset-0 ${
           darkMode
@@ -24,7 +24,7 @@ export default function Hero({ darkMode }) {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-16 pt-28 pb-16 min-h-screen flex items-center">
         <div className="grid lg:grid-cols-2 gap-14 items-center w-full">
-          
+
           {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, y: 35 }}
@@ -105,21 +105,47 @@ export default function Hero({ darkMode }) {
 
             {/* SOCIAL ICONS */}
             <div className="mt-10 flex gap-4 justify-center lg:justify-start">
-              {[FaGithub, FaLinkedin, FaInstagram, HiOutlineMail].map(
-                (Icon, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition ${
-                      darkMode
-                        ? "border-gray-700 bg-white/5 text-gray-200"
-                        : "border-gray-300 bg-white text-gray-800"
-                    }`}
-                  >
-                    <Icon size={20} />
-                  </a>
-                )
-              )}
+
+              {/* GitHub */}
+              <a
+                href="https://github.com/isfahanmol231207"
+                target="_blank"
+                rel="noreferrer"
+                className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition hover:scale-110 ${
+                  darkMode
+                    ? "border-gray-700 bg-white/5 text-gray-200 hover:bg-white hover:text-black"
+                    : "border-gray-300 bg-white text-gray-800 hover:bg-black hover:text-white"
+                }`}
+              >
+                <FaGithub size={20} />
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/in/isfah-anmol"
+                target="_blank"
+                rel="noreferrer"
+                className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition hover:scale-110 ${
+                  darkMode
+                    ? "border-gray-700 bg-white/5 text-gray-200 hover:bg-white hover:text-black"
+                    : "border-gray-300 bg-white text-gray-800 hover:bg-black hover:text-white"
+                }`}
+              >
+                <FaLinkedin size={20} />
+              </a>
+
+              {/* Email */}
+              <a
+                href="#contact"
+                className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition hover:scale-110 ${
+                  darkMode
+                    ? "border-gray-700 bg-white/5 text-gray-200 hover:bg-white hover:text-black"
+                    : "border-gray-300 bg-white text-gray-800 hover:bg-black hover:text-white"
+                }`}
+              >
+                <HiOutlineMail size={20} />
+              </a>
+
             </div>
           </motion.div>
 
@@ -152,29 +178,17 @@ export default function Hero({ darkMode }) {
                   className="w-[320px] h-[420px] object-cover rounded-[1.5rem]"
                 />
 
-                {/* Floating badges */}
-                <div
-                  className={`absolute -bottom-6 -left-6 px-5 py-4 rounded-2xl ${
-                    darkMode
-                      ? "bg-[#111214]/90 border border-gray-700 text-gray-100"
-                      : "bg-white border border-gray-300 text-gray-800"
-                  }`}
-                >
+                <div className="absolute -bottom-6 -left-6 px-5 py-4 rounded-2xl bg-[#111214]/90 border border-gray-700 text-gray-100">
                   Frontend Developer
                 </div>
 
-                <div
-                  className={`absolute -top-5 -right-5 px-4 py-3 rounded-2xl ${
-                    darkMode
-                      ? "bg-[#111214]/90 border border-gray-700 text-gray-200"
-                      : "bg-white border border-gray-300 text-gray-800"
-                  }`}
-                >
+                <div className="absolute -top-5 -right-5 px-4 py-3 rounded-2xl bg-[#111214]/90 border border-gray-700 text-gray-200">
                   Available
                 </div>
               </div>
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>
