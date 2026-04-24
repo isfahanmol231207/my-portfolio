@@ -90,8 +90,9 @@ export default function About({ darkMode }) {
                 darkMode ? "text-gray-300" : "text-gray-700"
               }`}
             >
-              I enjoy combining design, logic, and implementation to build
-              websites and apps that feel smooth and professional.
+               I build modern digital experiences across web and mobile platforms,
+  focusing on clean design, performance, and usability. My work combines
+  strong frontend development with practical implementation of real-world ideas.
             </p>
 
             <p
@@ -99,7 +100,10 @@ export default function About({ darkMode }) {
                 darkMode ? "text-gray-300" : "text-gray-700"
               }`}
             >
-              My GitHub includes frontend projects, clones, and forecasting work.
+             Alongside application development, I explore AI and data-driven projects,
+  including forecasting and predictive models. My GitHub showcases a mix of
+  frontend applications, clones, and intelligent systems, reflecting my
+  commitment to continuous learning and problem-solving.
             </p>
 
             <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
