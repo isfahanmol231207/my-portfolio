@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import {
   FaEnvelope,
   FaMapMarkerAlt,
@@ -6,20 +7,46 @@ import {
   FaGithub,
   FaLinkedin,
   FaPaperPlane,
-  FaDownload,
 } from "react-icons/fa";
 
 export default function Contact({ darkMode }) {
+  const form = useRef();
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState("");
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setSending(true);
+    setStatus("");
+
+    emailjs
+      .sendForm(
+        "service_388q2ih",
+        "template_31lizi9",
+        form.current,
+        "iqyiUjIsjYzFHbEvS"
+      )
+      .then(
+        () => {
+          setStatus("Message sent successfully!");
+          form.current.reset();
+          setSending(false);
+        },
+        (error) => {
+          console.log(error);
+          setStatus("Failed to send message. Try again.");
+          setSending(false);
+        }
+      );
+  };
+
   return (
     <section
       id="contact"
       className={`relative overflow-hidden pt-24 transition-colors duration-300 ${
-        darkMode
-          ? "bg-[#09090b] text-white"
-          : "bg-[#f5f5f5] text-[#111827]"
+        darkMode ? "bg-[#09090b] text-white" : "bg-[#f5f5f5] text-[#111827]"
       }`}
     >
-      {/* Background */}
       <div
         className={`absolute inset-0 ${
           darkMode
@@ -29,8 +56,6 @@ export default function Contact({ darkMode }) {
       />
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
-
-        {/* Header */}
         <div className="text-center">
           <p className="text-sm uppercase tracking-[0.3em] text-gray-400">
             Contact
@@ -49,7 +74,6 @@ export default function Contact({ darkMode }) {
           </p>
         </div>
 
-        {/* Top cards */}
         <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
@@ -76,10 +100,12 @@ export default function Contact({ darkMode }) {
               value: "Open to opportunities",
               href: "#",
             },
-          ].map((item, i) => (
+          ].map((item) => (
             <a
               key={item.title}
               href={item.href}
+              target={item.href.startsWith("http") ? "_blank" : undefined}
+              rel={item.href.startsWith("http") ? "noreferrer" : undefined}
               className={`rounded-2xl p-6 border transition ${
                 darkMode
                   ? "bg-[#111214] border-gray-800"
@@ -88,15 +114,12 @@ export default function Contact({ darkMode }) {
             >
               <div className="text-xl">{item.icon}</div>
               <h3 className="mt-3 font-semibold">{item.title}</h3>
-              <p className="text-sm mt-1">{item.value}</p>
+              <p className="text-sm mt-1 break-words">{item.value}</p>
             </a>
           ))}
         </div>
 
-        {/* Main grid */}
         <div className="mt-14 grid lg:grid-cols-[1.6fr_1fr] gap-8">
-          
-          {/* Form */}
           <div
             className={`rounded-2xl p-8 border ${
               darkMode
@@ -106,71 +129,112 @@ export default function Contact({ darkMode }) {
           >
             <h3 className="text-2xl font-bold">Send Message</h3>
 
-            <form className="mt-6 space-y-4">
+            <form ref={form} onSubmit={sendEmail} className="mt-6 space-y-4">
               <input
+                type="text"
+                name="user_name"
                 placeholder="Name"
-                className={`w-full p-3 rounded-xl border ${
+                required
+                className={`w-full p-3 rounded-xl border outline-none ${
                   darkMode
-                    ? "bg-[#0d0d10] border-gray-700 text-white"
-                    : "bg-gray-100 border-gray-300 text-black"
+                    ? "bg-[#0d0d10] border-gray-700 text-white placeholder:text-gray-500"
+                    : "bg-gray-100 border-gray-300 text-black placeholder:text-gray-500"
                 }`}
               />
+
               <input
+                type="email"
+                name="user_email"
                 placeholder="Email"
-                className={`w-full p-3 rounded-xl border ${
+                required
+                className={`w-full p-3 rounded-xl border outline-none ${
                   darkMode
-                    ? "bg-[#0d0d10] border-gray-700 text-white"
-                    : "bg-gray-100 border-gray-300 text-black"
+                    ? "bg-[#0d0d10] border-gray-700 text-white placeholder:text-gray-500"
+                    : "bg-gray-100 border-gray-300 text-black placeholder:text-gray-500"
                 }`}
               />
+
+              <input
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                required
+                className={`w-full p-3 rounded-xl border outline-none ${
+                  darkMode
+                    ? "bg-[#0d0d10] border-gray-700 text-white placeholder:text-gray-500"
+                    : "bg-gray-100 border-gray-300 text-black placeholder:text-gray-500"
+                }`}
+              />
+
               <textarea
+                name="message"
                 placeholder="Message"
                 rows="5"
-                className={`w-full p-3 rounded-xl border ${
+                required
+                className={`w-full p-3 rounded-xl border outline-none resize-none ${
                   darkMode
-                    ? "bg-[#0d0d10] border-gray-700 text-white"
-                    : "bg-gray-100 border-gray-300 text-black"
+                    ? "bg-[#0d0d10] border-gray-700 text-white placeholder:text-gray-500"
+                    : "bg-gray-100 border-gray-300 text-black placeholder:text-gray-500"
                 }`}
               />
 
               <button
-                className={`w-full py-3 rounded-xl ${
-                  darkMode
-                    ? "bg-white text-black"
-                    : "bg-black text-white"
-                }`}
+                type="submit"
+                disabled={sending}
+                className={`w-full py-3 rounded-xl flex items-center justify-center gap-2 font-semibold ${
+                  darkMode ? "bg-white text-black" : "bg-black text-white"
+                } ${sending ? "opacity-70 cursor-not-allowed" : ""}`}
               >
-                Send Message
+                <FaPaperPlane />
+                {sending ? "Sending..." : "Send Message"}
               </button>
+
+              {status && (
+                <p
+                  className={`text-sm ${
+                    status.includes("successfully")
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
+                  {status}
+                </p>
+              )}
             </form>
           </div>
 
-          {/* Right */}
           <div className="space-y-6">
             <a
               href="https://github.com/isfahanmol231207"
+              target="_blank"
+              rel="noreferrer"
               className={`block p-5 rounded-xl border ${
                 darkMode
                   ? "bg-[#111214] border-gray-800"
                   : "bg-white border-gray-300"
               }`}
             >
+              <FaGithub className="inline mr-2" />
               GitHub
             </a>
 
             <a
               href="https://www.linkedin.com/in/isfah-anmol"
+              target="_blank"
+              rel="noreferrer"
               className={`block p-5 rounded-xl border ${
                 darkMode
                   ? "bg-[#111214] border-gray-800"
                   : "bg-white border-gray-300"
               }`}
             >
+              <FaLinkedin className="inline mr-2" />
               LinkedIn
             </a>
 
             <a
               href="/resume.pdf"
+              download
               className={`block p-5 rounded-xl border ${
                 darkMode
                   ? "bg-[#111214] border-gray-800"
@@ -183,7 +247,6 @@ export default function Contact({ darkMode }) {
         </div>
       </div>
 
-      {/* Footer */}
       <footer
         className={`mt-20 border-t ${
           darkMode
